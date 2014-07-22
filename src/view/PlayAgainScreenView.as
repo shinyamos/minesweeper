@@ -8,17 +8,16 @@ package view {
 	import flash.display.Sprite;
 	import flash.events.MouseEvent;
 
-	public class PlayAgainScreenView {
+	public class PlayAgainScreenView extends BaseScreenView {
 		private var _screen : PlayAgainScreen;
-		private var _baseSprite : Sprite;
 
-		public function PlayAgainScreenView(baseSprite : Sprite) {
-			_baseSprite = baseSprite;
+		public function PlayAgainScreenView(baseSpr : Sprite) {
 			_screen = new PlayAgainScreen();
+			super(baseSpr);
 		}
 
 		public function show() : void {
-			_baseSprite.addChild(_screen);
+			_baseSpr.addChild(_screen);
 			_screen.playAgainButton.addEventListener(MouseEvent.MOUSE_UP, onPlayAgain);
 		}
 
@@ -30,10 +29,9 @@ package view {
 			EventController.getInstance().dispatchEvent(new GameOverEvent(GameOverEvent.PLAY_AGAIN));
 		}
 
-		public function destroy() : void {
+		override public function clear() : void {
 			_screen.playAgainButton.removeEventListener(MouseEvent.MOUSE_UP, onPlayAgain);
-			_baseSprite.removeChild(_screen);
-			_screen = null;
+			super.clear();
 		}
 	}
 }

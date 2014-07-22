@@ -24,7 +24,7 @@ package controller.screens {
 		}
 
 		override public function hide() : void {
-			_playAgainView.destroy();
+			_playAgainView.clear();
 			_playAgainView = null;
 		}
 	}

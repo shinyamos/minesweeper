@@ -1,46 +1,25 @@
 package controller.screens {
-	import assets.ChooseLevelScreen;
-
 	import controller.BaseController;
-	import controller.EventController;
 
-	import events.ChooseLevelScreenEvent;
+	import view.ChooseLevelScreenView;
 
 	import flash.display.Sprite;
-	import flash.events.MouseEvent;
 
 	public class ChooseLevelScreenController extends BaseController {
-		private var _chooseLevelScreen : ChooseLevelScreen;
+		private var _chooseLevelView : ChooseLevelScreenView;
 
 		public function ChooseLevelScreenController(spr : Sprite) {
+			_chooseLevelView = new ChooseLevelScreenView(spr);
 			super(spr);
 		}
 
 		override public function show() : void {
-			_chooseLevelScreen = new ChooseLevelScreen();
-			_sprite.addChild(_chooseLevelScreen);
-			_chooseLevelScreen.playButton.addEventListener(MouseEvent.MOUSE_UP, onLevelChosen);
-		}
-
-		private function onLevelChosen(e : MouseEvent) : void {
-			var chosenLevel : int;
-			switch (_chooseLevelScreen.radio_easy.group.selection) {
-				case _chooseLevelScreen.radio_easy:
-					chosenLevel = 0;
-					break;
-				case _chooseLevelScreen.radio_medium:
-					chosenLevel = 1;
-					break;
-				case _chooseLevelScreen.radio_hard:
-					chosenLevel = 2;
-			}
-			EventController.getInstance().dispatchEvent(new ChooseLevelScreenEvent(ChooseLevelScreenEvent.LEVEL_CHOSEN, chosenLevel));
+			_chooseLevelView.show();
 		}
 
 		override public function hide() : void {
-			_chooseLevelScreen.playButton.removeEventListener(MouseEvent.MOUSE_UP, onLevelChosen);
-			_sprite.removeChild(_chooseLevelScreen);
-			_chooseLevelScreen = null;
+			_chooseLevelView.clear();
+			_chooseLevelView = null;
 		}
 	}
 }
